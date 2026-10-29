@@ -1,5 +1,5 @@
 
-# Stage 1 — Member 01
+# Stage 1 — Member 1
 
 **Responsibility:** CSV file validation/loading, dataset representation, numeric-column detection and extracting numeric values while retaining original row indexes.
 
