@@ -1,16 +1,15 @@
-/**
- * In-place sorting algorithms for the numeric entries extracted from a dataset.
- *
- * <p>Every operation moves complete {@link Entry} references, so each value
- * remains associated with the row from which it was extracted.</p>
- */
-public final class SortingAlgorithms {
 
+ //In-place sorting algorithms for the numeric entries extracted from a dataset.
+
+ 
+public final class SortingAlgorithms {
+    
+    
     private SortingAlgorithms() {
         // Utility class.
     }
-
-    /** Average and worst case: O(n^2). */
+    //1. Insertion Sort
+    // Average and worst case
     public static void insertionSort(Entry[] entries) {
         requireEntries(entries);
         for (int i = 1; i < entries.length; i++) {
@@ -24,10 +23,8 @@ public final class SortingAlgorithms {
         }
     }
 
-    /**
-     * Shell Sort using the halving gap sequence n/2, n/4, ..., 1.
-     * Complexity depends on the gap sequence.
-     */
+    //2. Shell Sort
+    // Average and worst case: O(n^2) but can be improved with better gap sequences.
     public static void shellSort(Entry[] entries) {
         requireEntries(entries);
         for (int gap = entries.length / 2; gap > 0; gap /= 2) {
@@ -43,8 +40,8 @@ public final class SortingAlgorithms {
             }
         }
     }
-
-    /** Average and worst case: O(n log n). */
+     //3. Merge Sort
+    // Average and worst case
     public static void mergeSort(Entry[] entries) {
         requireEntries(entries);
         if (entries.length < 2) {
@@ -87,13 +84,8 @@ public final class SortingAlgorithms {
             }
         }
     }
-
-    /**
-     * Quick Sort with median-of-three pivot selection and a three-way
-     * partition. The smaller partition is processed first, limiting stack
-     * depth even when the input is already ordered. Average: O(n log n);
-     * worst case: O(n^2).
-     */
+    //4. Quick Sort
+    // Average and worst case: O(n log n) and O(n^2) respectively.
     public static void quickSort(Entry[] entries) {
         requireEntries(entries);
         quickSort(entries, 0, entries.length - 1);
@@ -125,8 +117,8 @@ public final class SortingAlgorithms {
             }
         }
     }
-
-    /** Average and worst case: O(n log n). */
+    //5. Heap Sort
+    // Average and worst case: O(n log n). 
     public static void heapSort(Entry[] entries) {
         requireEntries(entries);
         for (int parent = entries.length / 2 - 1; parent >= 0; parent--) {
@@ -152,7 +144,7 @@ public final class SortingAlgorithms {
         }
     }
 
-    /** Returns true when entries are in ascending numerical order. */
+   
     public static boolean isSorted(Entry[] entries) {
         requireEntries(entries);
         for (int i = 1; i < entries.length; i++) {

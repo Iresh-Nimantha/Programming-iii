@@ -1,7 +1,4 @@
-/**
- * Dependency-free correctness tests for {@link SortingAlgorithms}.
- * Run with: java -cp out SortingAlgorithmsTest
- */
+// Tests for the sorting algorithms.
 public final class SortingAlgorithmsTest {
     private static final String[] ALGORITHM_NAMES = {
         "insertion", "shell", "merge", "quick", "heap"
