@@ -14,4 +14,24 @@ java -cp out Member1Demo sample\students_sample.csv
 
 `CsvLoader.load(File)` validates the file and parses headers/rows. `isNumericColumn(Dataset, int)` identifies numeric columns. `extractColumn(Dataset, int)` returns `Entry[]` and a skipped-row count. `Entry.rowIndex` allows the later GUI to display complete CSV rows in sorted order.
 
+## Stage 2 — Member 2
+
+`SortingAlgorithms` provides in-place ascending sorts for extracted `Entry[]`
+values while preserving each entry's original `rowIndex`:
+
+```java
+SortingAlgorithms.insertionSort(entries);
+SortingAlgorithms.shellSort(entries);
+SortingAlgorithms.mergeSort(entries);
+SortingAlgorithms.quickSort(entries);
+SortingAlgorithms.heapSort(entries);
+boolean sorted = SortingAlgorithms.isSorted(entries);
+```
+
+Run the dependency-free sorting tests after compilation:
+
+```bat
+javac -d out src\*.java
+java -cp out SortingAlgorithmsTest
+```
 
