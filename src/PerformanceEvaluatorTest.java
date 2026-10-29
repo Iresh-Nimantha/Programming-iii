@@ -21,6 +21,28 @@ public final class PerformanceEvaluatorTest {
         assertWinnerIsPresent(result, "Expected a valid winner from the correct results");
         assertSortedRowsPreserveRows(result, dataset, "Sorted rows should keep the original row structure");
 
+        Dataset partialNumericDataset = new Dataset(
+                "partial.csv",
+                Arrays.asList("Name", "Value"),
+                new java.util.ArrayList<>(Arrays.asList(
+                        new String[] {"A", "8"},
+                        new String[] {"B", "not-a-number"},
+                        new String[] {"C", "3"},
+                        new String[] {"D", "2"},
+                        new String[] {"E", "9"},
+                        new String[] {"F", "1"},
+                        new String[] {"G", "4"},
+                        new String[] {"H", "7"},
+                        new String[] {"I", "6"},
+                        new String[] {"J", "5"}
+                ))
+        );
+        PerformanceEvaluator.EvaluationResult partialResult =
+                PerformanceEvaluator.evaluate(partialNumericDataset, 1);
+        if (partialResult.getSkippedRows() != 1 || partialResult.getSortedRows().size() != 9) {
+            throw new AssertionError("Invalid numeric values should be counted and excluded from sorted rows.");
+        }
+
         Dataset invalidDataset = new Dataset(
                 "invalid.csv",
                 Arrays.asList("Value"),

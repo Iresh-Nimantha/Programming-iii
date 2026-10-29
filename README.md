@@ -54,11 +54,11 @@ java -cp out SortingAlgorithmsTest
 
 ## Stage 3 — Member 3
 
-The final GUI allows a user to upload a CSV file, review the dataset, choose a numeric column, and benchmark the five sorting algorithms.
+The desktop application window is titled **Sorting Algorithm Performance Evaluator** and uses a light, academic-style Swing layout. It allows a user to upload a CSV file, review the dataset, choose from columns labeled Numeric or Text, and benchmark the five sorting algorithms.
 
 ### Benchmark method
 
-The benchmark copies the original `Entry[]` for each algorithm, measures time with `System.nanoTime()`, validates the sorted output independently, and excludes incorrect results from the fastest-correct winner. The GUI presents the execution time and correctness status for each algorithm and displays the full sorted dataset while preserving row integrity.
+The benchmark copies the original `Entry[]` for each algorithm, measures time with `System.nanoTime()`, validates the sorted output independently, and excludes incorrect results from the fastest-correct winner. The GUI ranks valid results by execution time, highlights the best valid result, displays a progress indicator while using `SwingWorker`, and displays sorted full rows while preserving row integrity. Empty or malformed numeric values are excluded from sorting and reported after the analysis. Datasets above 50,000 records trigger a warning because Insertion Sort may take a long time.
 
 ### Running the application
 
@@ -67,12 +67,14 @@ javac -d out src\*.java
 java -cp out Main
 ```
 
+On Windows, `run.bat` compiles and launches the program. On macOS/Linux, run `./run.sh`.
+
 Then:
 
-1. Click `Upload CSV`.
+1. Click `Choose CSV File`.
 2. Choose a CSV file like `sample\students_sample.csv`.
 3. Select a numeric column from the drop-down list.
-4. Click `Run Sorting` to benchmark the algorithms.
+4. Click `Run Performance Analysis` to benchmark the algorithms.
 5. Review the benchmark table and the sorted dataset.
 
 ## Algorithms included
@@ -99,4 +101,3 @@ java -cp out PerformanceEvaluatorTest
 - Rows with empty or malformed numeric values are skipped when building the sortable numeric column.
 - Very small datasets can produce noisy timing measurements; the GUI still reports timings in microseconds or milliseconds for readability.
 - The application is built without third-party UI libraries and uses standard Swing components.
-

@@ -75,7 +75,7 @@ public final class PerformanceEvaluator {
             sortedRows = buildSortedRows(dataset, winner.getSortedEntries());
         }
 
-        return new EvaluationResult(results, winner, sortedRows);
+        return new EvaluationResult(results, winner, sortedRows, extraction.skipped);
     }
 
     public static List<String[]> buildSortedRows(Dataset dataset, Entry[] sortedEntries) {
@@ -250,11 +250,14 @@ public final class PerformanceEvaluator {
         private final List<AlgorithmResult> results;
         private final AlgorithmResult winner;
         private final List<String[]> sortedRows;
+        private final int skippedRows;
 
-        public EvaluationResult(List<AlgorithmResult> results, AlgorithmResult winner, List<String[]> sortedRows) {
+        public EvaluationResult(List<AlgorithmResult> results, AlgorithmResult winner,
+                                List<String[]> sortedRows, int skippedRows) {
             this.results = Collections.unmodifiableList(new ArrayList<>(results));
             this.winner = winner;
             this.sortedRows = Collections.unmodifiableList(new ArrayList<>(sortedRows));
+            this.skippedRows = skippedRows;
         }
 
         public List<AlgorithmResult> getResults() {
@@ -275,6 +278,10 @@ public final class PerformanceEvaluator {
 
         public List<String[]> getSortedRows() {
             return sortedRows;
+        }
+
+        public int getSkippedRows() {
+            return skippedRows;
         }
     }
 
