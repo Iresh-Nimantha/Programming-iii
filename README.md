@@ -1,7 +1,25 @@
 
-# Stage 1 — Member 1
+# Java Application for Sorting Algorithm Performance Evaluation
 
-**Responsibility:** CSV file validation/loading, dataset representation, numeric-column detection and extracting numeric values while retaining original row indexes.
+This project combines CSV handling, sorting implementations, performance benchmarking, and a Java Swing GUI for comparing five sorting algorithms on numeric CSV columns.
+
+## Java version and project structure
+
+- Java version: Java 8 or later is supported.
+- Project layout:
+  - `src/Entry.java` stores a numeric value and its original CSV row index.
+  - `src/Dataset.java` stores CSV headers and rows.
+  - `src/CsvLoader.java` validates and parses CSV files.
+  - `src/SortingAlgorithms.java` implements insertion, shell, merge, quick, and heap sort.
+  - `src/PerformanceEvaluator.java` benchmarks each algorithm and selects the fastest correct result.
+  - `src/MainFrame.java` provides the GUI.
+  - `src/Main.java` launches the application.
+  - `src/SortingAlgorithmsTest.java` verifies sorting correctness.
+  - `src/PerformanceEvaluatorTest.java` verifies benchmark behavior.
+
+## Stage 1 — Member 1
+
+**Responsibility:** CSV validation/loading, dataset representation, numeric-column detection and extraction while retaining original row indexes.
 
 Files: `Entry.java`, `Dataset.java`, `CsvLoader.java`, `Member1Demo.java`.
 
@@ -12,12 +30,11 @@ javac -d out src\*.java
 java -cp out Member1Demo sample\students_sample.csv
 ```
 
-`CsvLoader.load(File)` validates the file and parses headers/rows. `isNumericColumn(Dataset, int)` identifies numeric columns. `extractColumn(Dataset, int)` returns `Entry[]` and a skipped-row count. `Entry.rowIndex` allows the later GUI to display complete CSV rows in sorted order.
+`CsvLoader.load(File)` validates the file and parses headers/rows. `isNumericColumn(Dataset, int)` identifies numeric columns. `extractColumn(Dataset, int)` returns `Entry[]` and a skipped-row count. `Entry.rowIndex` allows the GUI to display complete CSV rows in sorted order.
 
 ## Stage 2 — Member 2
 
-`SortingAlgorithms` provides in-place ascending sorts for extracted `Entry[]`
-values while preserving each entry's original `rowIndex`:
+`SortingAlgorithms` provides in-place ascending sorts for extracted `Entry[]` values while preserving each entry's original `rowIndex`:
 
 ```java
 SortingAlgorithms.insertionSort(entries);
@@ -34,4 +51,52 @@ Run the dependency-free sorting tests after compilation:
 javac -d out src\*.java
 java -cp out SortingAlgorithmsTest
 ```
+
+## Stage 3 — Member 3
+
+The final GUI allows a user to upload a CSV file, review the dataset, choose a numeric column, and benchmark the five sorting algorithms.
+
+### Benchmark method
+
+The benchmark copies the original `Entry[]` for each algorithm, measures time with `System.nanoTime()`, validates the sorted output independently, and excludes incorrect results from the fastest-correct winner. The GUI presents the execution time and correctness status for each algorithm and displays the full sorted dataset while preserving row integrity.
+
+### Running the application
+
+```bat
+javac -d out src\*.java
+java -cp out Main
+```
+
+Then:
+
+1. Click `Upload CSV`.
+2. Choose a CSV file like `sample\students_sample.csv`.
+3. Select a numeric column from the drop-down list.
+4. Click `Run Sorting` to benchmark the algorithms.
+5. Review the benchmark table and the sorted dataset.
+
+## Algorithms included
+
+- Insertion Sort
+- Shell Sort
+- Merge Sort
+- Quick Sort
+- Heap Sort
+
+## Tests
+
+Run the complete Java test set from the project root:
+
+```bat
+javac -d out src\*.java
+java -cp out SortingAlgorithmsTest
+java -cp out PerformanceEvaluatorTest
+```
+
+## Limitations and assumptions
+
+- The project assumes CSV files are UTF-8 encoded and use standard comma-separated values.
+- Rows with empty or malformed numeric values are skipped when building the sortable numeric column.
+- Very small datasets can produce noisy timing measurements; the GUI still reports timings in microseconds or milliseconds for readability.
+- The application is built without third-party UI libraries and uses standard Swing components.
 
